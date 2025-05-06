@@ -1,0 +1,16 @@
+.footer-nav {
+  display: flex;
+  justify-content: space-around;
+  padding: 1rem;
+  border-top: 1px solid #ccc;
+  background-color: #ffffff;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+.footer-nav button {
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #999;
+}
