@@ -6,15 +6,12 @@ import jakarta.persistence.*;
 @Table(name = "notificacoes")
 public class Notificacao {
 
-    @ManyToOne
-    @JoinColumn(name = "usuario_id")
-    private Usuario usuario;
-
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private long id;
-    @Column(name = "usuario_id")
-    private long usuarioId;
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
     private String mensagem;
     private boolean lida;
     @Column(name = "data_envio")
@@ -34,14 +31,6 @@ public class Notificacao {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public long getUsuarioId() {
-        return usuarioId;
-    }
-
-    public void setUsuarioId(long usuarioId) {
-        this.usuarioId = usuarioId;
     }
 
     public String getMensagem() {

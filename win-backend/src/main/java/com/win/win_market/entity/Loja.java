@@ -7,16 +7,12 @@ import java.util.List;
 @Entity
 @Table(name = "lojas")
 public class Loja {
-
-    @ManyToOne
-    @JoinColumn(name = "usuario_id")
-    private Usuario usuario;
-
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private long id;
-    @Column(name = "usuario_id")
-    private long usuarioId;
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
     @Column(name = "nome_fantasia")
     private String nomeFantasia;
     @Column(name = "razao_social")
@@ -40,14 +36,6 @@ public class Loja {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public long getUsuarioId() {
-        return usuarioId;
-    }
-
-    public void setUsuarioId(long usuarioId) {
-        this.usuarioId = usuarioId;
     }
 
     public String getNomeFantasia() {

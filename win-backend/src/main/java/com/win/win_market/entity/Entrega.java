@@ -10,14 +10,19 @@ public class Entrega {
     private long id;
     @ManyToOne
     @JoinColumn(name = "pedido_id")
-    private long pedidoId;
+    private Pedido pedido;
+
     private String status;
+
     @Column(name = "data_retirada")
     private String dataRetirada;
+
     @Column(name = "data_entrega")
     private String dataEntrega;
+
     @Column(name = "codigo_confirmacao_retirada")
     private String codigoConfirmacaoRetirada;
+
     @Column(name = "codigo_confirmacao_entrega")
     private String codigoConfirmacaoEntrega;
 
@@ -27,14 +32,6 @@ public class Entrega {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public long getPedidoId() {
-        return pedidoId;
-    }
-
-    public void setPedidoId(long pedidoId) {
-        this.pedidoId = pedidoId;
     }
 
     public String getStatus() {

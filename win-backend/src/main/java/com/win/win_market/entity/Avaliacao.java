@@ -1,8 +1,6 @@
 package com.win.win_market.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Avaliacao {
@@ -11,7 +9,11 @@ public class Avaliacao {
     private Long id;
     private String comentario;
     private int nota;
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
     private Usuario usuario;
+    @ManyToOne
+    @JoinColumn(name = "produto_id")
     private Produto produto;
 
     public Avaliacao() {

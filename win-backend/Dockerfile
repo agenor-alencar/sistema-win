@@ -1,14 +1,12 @@
-# Etapa 1: usa a imagem do JDK para rodar o app
-FROM openjdk:17-jdk-slim
-
-# Define o diretório de trabalho dentro do container
+# Etapa de build
+FROM maven:3.9.3-eclipse-temurin-17 AS build
 WORKDIR /app
+COPY . .
+RUN mvn clean package -DskipTests
 
-# Copia o .jar gerado do projeto para dentro do container
-COPY target/*.jar app.jar
-
-# Expõe a porta que o Spring Boot vai usar (padrão é 8080)
+# Etapa de execução
+FROM eclipse-temurin:17
+WORKDIR /app
+COPY --from=build /app/target/*.jar app.jar
 EXPOSE 8080
-
-# Comando para iniciar o app
 ENTRYPOINT ["java", "-jar", "app.jar"]

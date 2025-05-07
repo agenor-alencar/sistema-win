@@ -5,16 +5,12 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "enderecos")
 public class Endereco {
-
-    @ManyToOne
-    @JoinColumn(name = "usuario_id")
-    private Usuario usuario;
-
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private long id;
-    @Column(name = "usuario_id")
-    private long usuarioId;
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
     private String rua;
     private String numero;
     private String bairro;
@@ -31,14 +27,6 @@ public class Endereco {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public long getUsuarioId() {
-        return usuarioId;
-    }
-
-    public void setUsuarioId(long usuarioId) {
-        this.usuarioId = usuarioId;
     }
 
     public String getRua() {

@@ -5,16 +5,12 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "produtos")
 public class Produto {
-
-    @ManyToOne
-    @JoinColumn(name = "loja_id")
-    private Loja loja;
-
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private long id;
-    @Column(name = "loja_id")
-    private long lojaId;
+    @ManyToOne
+    @JoinColumn(name = "loja_id")
+    private Loja loja;
     private String nome;
     private String descricao;
     private double preco;
@@ -30,14 +26,6 @@ public class Produto {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public long getLojaId() {
-        return lojaId;
-    }
-
-    public void setLojaId(long lojaId) {
-        this.lojaId = lojaId;
     }
 
     public String getNome() {

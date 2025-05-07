@@ -5,21 +5,23 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "pagamentos")
 public class Pagamento {
+    @Id
+    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
+    private long id;
+
     @ManyToOne
     @JoinColumn(name = "pedido_id")
     private Pedido pedido;
 
-    @Id
-    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
-    private long id;
-    @Column(name = "pedido_id")
-    private long pedidoId;
     @Column(name = "metodo_pagamento")
     private String metodoPagamento;
+
     @Column(name = "status_pagamento")
     private String statusPagamento;
+
     @Column(name = "valor_total")
     private double valorTotal;
+
     @Column(name = "data_pagamento")
     private String dataPagamento;
 
@@ -37,14 +39,6 @@ public class Pagamento {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public long getPedidoId() {
-        return pedidoId;
-    }
-
-    public void setPedidoId(long pedidoId) {
-        this.pedidoId = pedidoId;
     }
 
     public String getMetodoPagamento() {

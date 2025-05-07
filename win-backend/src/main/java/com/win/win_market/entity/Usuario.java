@@ -9,14 +9,17 @@ import java.util.List;
 @Table(name = "usuarios")
 public class Usuario {
     @Id
-    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
     private String nome;
     private String email;
     private String senha;
     private String telefone;
+
     @Column(name = "tipo_usuario")
     private String tipoUsuario;
+
     @Column(name = "data_criacao")
     private Date dataCriacao;
 
@@ -26,7 +29,7 @@ public class Usuario {
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Notificacao> notificacoes;
 
-    @OneToMany(mappedBy = "avaliador")
+    @OneToMany(mappedBy = "usuario")
     private List<Avaliacao> avaliacoes;
 
     public long getId() {

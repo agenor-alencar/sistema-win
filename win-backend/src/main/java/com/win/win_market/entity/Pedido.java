@@ -7,7 +7,9 @@ import java.util.List;
 @Entity
 @Table(name = "pedidos")
 public class Pedido {
-
+    @Id
+    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
+    private long id;
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Usuario cliente;
@@ -20,22 +22,17 @@ public class Pedido {
     @JoinColumn(name = "motorista_id")
     private Usuario motorista;
 
-    @Id
-    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
-    private long id;
-    @Column(name = "cliente_id")
-    private long clienteId;
-    @Column(name = "loja_id")
-    private long lojaId;
-    @Column(name = "motorista_id")
-    private long motoristaId;
     private String status;
+
     @Column(name = "codigo_retirada")
     private String codigoRetirada;
+
     @Column(name = "codigo_entrega")
     private String codigoEntrega;
+
     @Column(name = "data_pedido")
     private String dataPedido;
+
     @Column(name = "data_entrega")
     private String dataEntrega;
 
@@ -56,29 +53,6 @@ public class Pedido {
         this.id = id;
     }
 
-    public long getClienteId() {
-        return clienteId;
-    }
-
-    public void setClienteId(long clienteId) {
-        this.clienteId = clienteId;
-    }
-
-    public long getLojaId() {
-        return lojaId;
-    }
-
-    public void setLojaId(long lojaId) {
-        this.lojaId = lojaId;
-    }
-
-    public long getMotoristaId() {
-        return motoristaId;
-    }
-
-    public void setMotoristaId(long motoristaId) {
-        this.motoristaId = motoristaId;
-    }
 
     public String getStatus() {
         return status;
