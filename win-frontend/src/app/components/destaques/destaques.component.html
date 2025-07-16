@@ -1,9 +1,0 @@
-<h3>Produtos em Destaque</h3>
-<div class="produtos-scroll">
-  <div class="produto" *ngFor="let produto of produtos">
-    <img [src]="produto.imagem" />
-    <p>{{ produto.nome }}</p>
-    <small>{{ produto.loja }}</small>
-    <strong>{{ produto.preco | currency:'BRL' }}</strong>
-  </div>
-</div>
