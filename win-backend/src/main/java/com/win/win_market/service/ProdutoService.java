@@ -1,6 +1,6 @@
 package com.win.win_market.service;
 
-import com.win.win_market.entity.Produto;
+import com.win.win_market.model.Produto;
 import com.win.win_market.repository.ProdutoRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,6 +1,6 @@
 package com.win.win_market.repository;
 
-import com.win.win_market.entity.Usuario;
+import com.win.win_market.model.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

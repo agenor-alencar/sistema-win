@@ -1,7 +1,6 @@
 package com.win.win_market.controller;
 
-import com.win.win_market.entity.Produto;
-import com.win.win_market.entity.Usuario;
+import com.win.win_market.model.Produto;
 import com.win.win_market.service.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

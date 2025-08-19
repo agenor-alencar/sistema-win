@@ -1,6 +1,6 @@
 package com.win.win_market.repository;
 
-import com.win.win_market.entity.Loja;
+import com.win.win_market.model.Loja;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
