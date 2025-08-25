@@ -1,70 +1,35 @@
 package com.win.win_market.dto.request;
 
-import java.time.LocalDate;
+import com.win.win_market.validation.NoXSS;
+import com.win.win_market.validation.NoSQLInjection;
+import com.win.win_market.validation.StrongPassword;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.*;
 
-public class RegisterRequestDTO {
+import java.util.List;
 
-    private String nome;
-    private String email;
-    private String senha;
-    private String cpf;
-    private LocalDate dataNascimento;
-    private String telefone;
+public record RegisterRequestDTO(
+    @NotBlank(message = "Nome é obrigatório")
+    @Size(min = 2, max = 100, message = "Nome deve ter entre 2 e 100 caracteres")
+    @NoXSS
+    @NoSQLInjection
+    String nome,
 
-    public RegisterRequestDTO(String nome, String email, String senha, String cpf, LocalDate dataNascimento, String telefone) {
-        this.nome = nome;
-        this.email = email;
-        this.senha = senha;
-        this.cpf = cpf;
-        this.dataNascimento = dataNascimento;
-        this.telefone = telefone;
-    }
+    @NotBlank(message = "Email é obrigatório")
+    @Email(message = "Email deve ter formato válido")
+    @Size(max = 255, message = "Email deve ter no máximo 255 caracteres")
+    @NoXSS
+    String email,
 
-    public String getNome() {
-        return nome;
-    }
+    @NotBlank(message = "Senha é obrigatória")
+    @StrongPassword
+    String senha,
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+    @Size(max = 20, message = "Telefone deve ter no máximo 20 caracteres")
+    @Pattern(regexp = "^\\+?[1-9]\\d{1,14}$", message = "Formato de telefone inválido")
+    @NoXSS
+    String telefone,
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-    public LocalDate getDataNascimento() {
-        return dataNascimento;
-    }
-
-    public void setDataNascimento(LocalDate dataNascimento) {
-        this.dataNascimento = dataNascimento;
-    }
-
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
-}
+    @Valid
+    List<EnderecoRequestDTO> enderecos
+) {}

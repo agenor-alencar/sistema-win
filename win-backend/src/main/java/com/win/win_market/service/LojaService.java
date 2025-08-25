@@ -13,7 +13,8 @@ import java.util.List;
 public class LojaService {
 
     @Autowired
-    private LojaRepository lojaRepository; // Injeção de dependência do LojaRepository
+    private LojaRepository lojaRepository;
+    private final Logger log = LoggerFactory.getLogger(LojaService.class);
 
     private static final Logger logger = LoggerFactory.getLogger(LojaService.class);
 

@@ -39,4 +39,8 @@ public class Loja {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "endereco_id", referencedColumnName = "id")
     private Endereco endereco;
+
+    private String nomeFantasia;
+
+
 }

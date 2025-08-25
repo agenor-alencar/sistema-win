@@ -1,27 +1,18 @@
 package com.win.win_market.dto.request;
 
-public class LoginRequestDTO {
-    private String email;
-    private String senha;
+import com.win.win_market.validation.NoXSS;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
-    public LoginRequestDTO(String email, String senha) {
-        this.email = email;
-        this.senha = senha;
-    }
+public record LoginRequestDTO(
+    @NotBlank(message = "Email é obrigatório")
+    @Email(message = "Email deve ter formato válido")
+    @Size(max = 100, message = "Email deve ter no máximo 100 caracteres")
+    @NoXSS
+    String email,
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-}
+    @NotBlank(message = "Senha é obrigatória")
+    @Size(min = 8, max = 255, message = "Senha deve ter entre 8 e 255 caracteres")
+    String senha
+) {}
