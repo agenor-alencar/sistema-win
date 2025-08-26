@@ -9,7 +9,7 @@ import org.mapstruct.*;
 public interface PedidoMapper {
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "dataCriacao", ignore = true)
+    @Mapping(target = "dataPedido", ignore = true)
     @Mapping(target = "dataAtualizacao", ignore = true)
     @Mapping(target = "cliente", ignore = true)
     @Mapping(target = "valorTotal", ignore = true)

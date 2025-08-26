@@ -4,8 +4,10 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 @Entity
@@ -28,5 +30,8 @@ public class Cliente {
 
     @Column(name = "data_nascimento")
     private LocalDate dataNascimento;
-}
 
+    @Column(name = "data_cadastro", updatable = false, columnDefinition = "TIMESTAMP WITH TIME ZONE")
+    @CreationTimestamp
+    private OffsetDateTime dataCadastro;
+}

@@ -12,7 +12,6 @@ public interface ItemPedidoMapper {
     @Mapping(target = "pedido", ignore = true)
     @Mapping(target = "produto", ignore = true)
     @Mapping(target = "precoUnitario", ignore = true)
-    @Mapping(target = "subtotal", ignore = true)
     ItemPedido toEntity(ItemPedidoRequestDTO dto);
 
     ItemPedidoResponseDTO toResponseDTO(ItemPedido itemPedido);

@@ -4,7 +4,9 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 @Entity
@@ -33,5 +35,8 @@ public class Motorista {
 
     @Column(name = "status_disponibilidade", length = 20)
     private String statusDisponibilidade;
-}
 
+    @Column(name = "data_cadastro", updatable = false, columnDefinition = "TIMESTAMP WITH TIME ZONE")
+    @CreationTimestamp
+    private OffsetDateTime dataCadastro;
+}

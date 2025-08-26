@@ -11,10 +11,9 @@ public interface ItemCarrinhoMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "carrinho", ignore = true)
     @Mapping(target = "produto", ignore = true)
-    @Mapping(target = "subtotal", ignore = true)
     ItemCarrinho toEntity(CarrinhoItemRequestDTO dto);
 
-    @Mapping(target = "subtotal", expression = "java(calcularSubtotal(itemCarrinho))")
+
     ItemCarrinhoResponseDTO toResponseDTO(ItemCarrinho itemCarrinho);
 
     default java.math.BigDecimal calcularSubtotal(ItemCarrinho itemCarrinho) {

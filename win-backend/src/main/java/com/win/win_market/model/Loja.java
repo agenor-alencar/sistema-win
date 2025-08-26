@@ -40,7 +40,12 @@ public class Loja {
     @JoinColumn(name = "endereco_id", referencedColumnName = "id")
     private Endereco endereco;
 
+    @Column(name = "nome_fantasia", nullable = false)
     private String nomeFantasia;
+
+
+    private Boolean ativo;
+
 
 
 }

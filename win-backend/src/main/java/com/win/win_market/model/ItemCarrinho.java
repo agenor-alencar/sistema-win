@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import java.math.BigDecimal;
 
 import java.time.OffsetDateTime;
 import java.util.UUID;
@@ -36,5 +37,8 @@ public class ItemCarrinho {
     @Column(name = "data_adicao", updatable = false, columnDefinition = "TIMESTAMP WITH TIME ZONE")
     @CreationTimestamp
     private OffsetDateTime dataAdicao;
+
+    @Column(name = "preco_unitario", nullable = false)
+    private BigDecimal precoUnitario;
 }
 

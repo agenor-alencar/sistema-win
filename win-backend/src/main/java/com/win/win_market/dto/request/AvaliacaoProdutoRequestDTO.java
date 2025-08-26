@@ -10,6 +10,9 @@ public record AvaliacaoProdutoRequestDTO(
     @NotNull(message = "ID do produto é obrigatório")
     UUID produtoId,
 
+    @NotNull(message = "ID do pedido é obrigatório")
+    UUID pedidoId,
+
     @NotNull(message = "Nota é obrigatória")
     @Min(value = 1, message = "Nota deve ser entre 1 e 5")
     @Max(value = 5, message = "Nota deve ser entre 1 e 5")

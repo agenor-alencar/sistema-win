@@ -35,4 +35,7 @@ public class Notificacao {
     @Column(name = "data_criacao", updatable = false, columnDefinition = "TIMESTAMP WITH TIME ZONE")
     @CreationTimestamp
     private OffsetDateTime dataCriacao;
+
+    @Column(length = 50)
+    private String titulo;
 }

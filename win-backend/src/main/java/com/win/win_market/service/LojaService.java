@@ -1,60 +1,125 @@
 package com.win.win_market.service;
 
+import com.win.win_market.dto.request.LojaCreateRequestDTO;
+import com.win.win_market.dto.response.LojaResponseDTO;
+import com.win.win_market.dto.mapper.LojaMapper;
+import com.win.win_market.exceptions.ResourceNotFoundException;
+import com.win.win_market.exceptions.ResourceAlreadyExistsException;
 import com.win.win_market.model.Loja;
-import com.win.win_market.repository.LojaRepository; // Certifique-se de ter este repositório
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.win.win_market.model.Vendedor;
+import com.win.win_market.repository.LojaRepository;
+import com.win.win_market.repository.VendedorRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class LojaService {
 
-    @Autowired
-    private LojaRepository lojaRepository;
-    private final Logger log = LoggerFactory.getLogger(LojaService.class);
+    private final LojaRepository lojaRepository;
+    private final VendedorRepository vendedorRepository;
+    private final LojaMapper lojaMapper;
 
-    private static final Logger logger = LoggerFactory.getLogger(LojaService.class);
+    @Transactional
+    public LojaResponseDTO criarLoja(LojaCreateRequestDTO requestDTO) {
+        Vendedor vendedor = vendedorRepository.findById(requestDTO.vendedorId())
+                .orElseThrow(() -> new ResourceNotFoundException("Vendedor não encontrado"));
 
-    public List<Loja> buscarTudo() {
-        try {
-            return lojaRepository.findAll();
-        } catch (Exception e) {
-            logger.error("Erro ao buscar todas as lojas", e);
-            throw new RuntimeException("Erro ao recuperar lojas do banco de dados", e);
+        if (lojaRepository.existsByVendedorId(requestDTO.vendedorId())) {
+            throw new ResourceAlreadyExistsException("Vendedor já possui uma loja");
         }
+
+        Loja loja = new Loja();
+        loja.setNomeFantasia(requestDTO.nomeFantasia());
+        loja.setDescricao(requestDTO.descricao());
+        loja.setAtivo(true);
+
+        Loja lojaSalva = lojaRepository.save(loja);
+        return lojaMapper.toResponseDTO(lojaSalva);
     }
 
-    public Loja buscarPorId(Long id) {
-        try {
-            return lojaRepository.findById(id)
-                    .orElseThrow(() -> new RuntimeException("Loja não encontrada com ID: " + id));
-        } catch (Exception e) {
-            logger.error("Erro ao buscar loja por ID: {}", id, e);
-            throw new RuntimeException("Erro ao recuperar loja do banco de dados", e);
-        }
+    @Transactional(readOnly = true)
+    public List<LojaResponseDTO> listarLojas() {
+        return lojaRepository.findAll()
+                .stream()
+                .map(lojaMapper::toResponseDTO)
+                .collect(Collectors.toList());
     }
 
-    public Loja salvar(Loja loja) {
-        try {
-            return lojaRepository.save(loja);
-        } catch (Exception e) {
-            logger.error("Erro ao salvar loja: {}", loja.getNomeFantasia(), e);
-            throw new RuntimeException("Erro ao persistir loja no banco de dados", e);
-        }
+    @Transactional(readOnly = true)
+    public List<LojaResponseDTO> listarLojasAtivas() {
+        return lojaRepository.findByAtivaTrue()
+                .stream()
+                .map(lojaMapper::toResponseDTO)
+                .collect(Collectors.toList());
     }
 
-    public void deletar(Long id) {
-        try {
-            if (!lojaRepository.existsById(id)) {
-                throw new RuntimeException("Loja não encontrada com ID: " + id);
-            }
-            lojaRepository.deleteById(id);
-        } catch (Exception e) {
-            logger.error("Erro ao deletar loja com ID: {}", id, e);
-            throw new RuntimeException("Erro ao deletar loja do banco de dados", e);
-        }
+    @Transactional(readOnly = true)
+    public LojaResponseDTO buscarPorId(UUID id) {
+        Loja loja = lojaRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Loja não encontrada"));
+        return lojaMapper.toResponseDTO(loja);
+    }
+
+    @Transactional(readOnly = true)
+    public LojaResponseDTO buscarPorVendedorId(UUID vendedorId) {
+        Loja loja = lojaRepository.findByVendedorId(vendedorId)
+                .orElseThrow(() -> new ResourceNotFoundException("Loja não encontrada para este vendedor"));
+        return lojaMapper.toResponseDTO(loja);
+    }
+
+    @Transactional(readOnly = true)
+    public List<LojaResponseDTO> buscarPorNome(String nome) {
+        return lojaRepository.findByNomeFantasiaContainingIgnoreCase(nome)
+                .stream()
+                .map(lojaMapper::toResponseDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public LojaResponseDTO atualizarLoja(UUID id, LojaCreateRequestDTO requestDTO) {
+        Loja loja = lojaRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Loja não encontrada"));
+
+        loja.setNomeFantasia(requestDTO.nomeFantasia());
+        loja.setDescricao(requestDTO.descricao());
+
+        Loja lojaAtualizada = lojaRepository.save(loja);
+        return lojaMapper.toResponseDTO(lojaAtualizada);
+    }
+
+    @Transactional
+    public LojaResponseDTO ativarLoja(UUID id) {
+        Loja loja = lojaRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Loja não encontrada"));
+
+        loja.setAtivo(true);
+        Loja lojaAtualizada = lojaRepository.save(loja);
+        return lojaMapper.toResponseDTO(lojaAtualizada);
+    }
+
+    @Transactional
+    public LojaResponseDTO desativarLoja(UUID id) {
+        Loja loja = lojaRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Loja não encontrada"));
+
+        loja.setAtivo(false);
+        Loja lojaAtualizada = lojaRepository.save(loja);
+        return lojaMapper.toResponseDTO(lojaAtualizada);
+    }
+
+    @Transactional
+    public void deletarLoja(UUID id) {
+        Loja loja = lojaRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Loja não encontrada"));
+
+        loja.setAtivo(false);
+
+        lojaRepository.save(loja);
     }
 }

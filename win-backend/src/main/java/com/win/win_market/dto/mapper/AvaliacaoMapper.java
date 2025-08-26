@@ -11,7 +11,7 @@ public interface AvaliacaoMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "produto", ignore = true)
     @Mapping(target = "cliente", ignore = true)
-    @Mapping(target = "dataCriacao", ignore = true)
+    @Mapping(target = "dataAvaliacao", ignore = true)
     AvaliacaoProduto toEntity(AvaliacaoProdutoRequestDTO dto);
 
     AvaliacaoResponseDTO toResponseDTO(AvaliacaoProduto avaliacao);

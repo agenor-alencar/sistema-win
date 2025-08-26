@@ -29,9 +29,9 @@ public class Entrega {
     @JoinColumn(name = "motorista_id")
     private Motorista motorista;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "endereco_entrega_id")
-    private Endereco enderecoEntrega;
+
+    @Column(name = "endereco_entrega", columnDefinition = "TEXT")
+    private String enderecoEntrega;
 
     @Column(length = 50)
     private String status;

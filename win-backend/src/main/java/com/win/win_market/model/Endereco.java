@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.UuidGenerator;
 
 import java.util.UUID;
 
@@ -27,7 +26,7 @@ public class Endereco {
     private String tipoEndereco;
 
     @Column(length = 100)
-    private String rua;
+    private String logradouro;  // Corrigido de 'rua' para 'logradouro'
 
     @Column(length = 20)
     private String numero;
@@ -46,4 +45,7 @@ public class Endereco {
 
     @Column(length = 20)
     private String cep;
+
+    @Column(nullable = false)
+    private boolean ativo;
 }

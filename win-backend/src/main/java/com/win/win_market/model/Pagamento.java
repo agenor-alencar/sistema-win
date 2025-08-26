@@ -40,4 +40,11 @@ public class Pagamento {
     @Column(name = "data_pagamento", updatable = false, columnDefinition = "TIMESTAMP WITH TIME ZONE")
     @CreationTimestamp
     private OffsetDateTime dataPagamento;
+
+    @Column(length = 50, nullable = false)
+    private String observacoes;
+
+    @Column(name = "data_reembolso", columnDefinition = "TIMESTAMP WITH TIME ZONE")
+    private OffsetDateTime dataReembolso;
+
 }

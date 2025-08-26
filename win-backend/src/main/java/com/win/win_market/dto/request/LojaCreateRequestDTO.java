@@ -1,5 +1,6 @@
 package com.win.win_market.dto.request;
 
+import com.win.win_market.model.Vendedor;
 import com.win.win_market.validation.NoXSS;
 import com.win.win_market.validation.NoSQLInjection;
 import jakarta.validation.constraints.*;
@@ -25,5 +26,11 @@ public record LojaCreateRequestDTO(
     @NotNull(message = "ID do proprietário é obrigatório")
     UUID proprietarioId,
 
-    EnderecoRequestDTO endereco
-) {}
+    EnderecoRequestDTO endereco,
+
+    UUID vendedorId,
+    String nomeFantasia
+
+) {
+
+}

@@ -32,10 +32,10 @@ public class SwaggerConfig {
                                 .url("https://opensource.org/licenses/MIT")))
                 .servers(List.of(
                         new Server()
-                                .url("http://localhost:8080")
+                                .url("${BACKEND_URL}")
                                 .description("Servidor de Desenvolvimento"),
                         new Server()
-                                .url("https://api.winmarket.com")
+                                .url("${BACKEND_URL_PROD}")
                                 .description("Servidor de Produção")))
                 .components(new Components()
                         .addSecuritySchemes("bearerAuth",

@@ -34,6 +34,10 @@ public class Usuario {
     @Column(length = 20)
     private String telefone;
 
+    @Enumerated(EnumType.STRING)
+    @Column(length = 50)
+    private Role role;
+
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Endereco> enderecos;
 
@@ -44,4 +48,6 @@ public class Usuario {
     @Column(name = "ultimo_acesso", columnDefinition = "TIMESTAMP WITH TIME ZONE")
     @UpdateTimestamp
     private OffsetDateTime ultimoAcesso;
+
+    private boolean ativo;
 }

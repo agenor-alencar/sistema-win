@@ -50,4 +50,15 @@ public class Pedido {
     @Column(name = "data_atualizacao", columnDefinition = "TIMESTAMP WITH TIME ZONE")
     @UpdateTimestamp
     private OffsetDateTime dataAtualizacao;
+
+    @Column(length = 50)
+    private String observacoes;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "endereco_entrega_id", nullable = false)
+    private Endereco enderecoEntrega;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "pagamento_id", nullable = false)
+    private Pagamento pagamento;
 }

@@ -24,5 +24,9 @@ public record PedidoCreateRequestDTO(
     @Size(max = 500, message = "Observações devem ter no máximo 500 caracteres")
     @NoXSS
     @NoSQLInjection
-    String observacoes
-) {}
+    String observacoes,
+
+    UUID enderecoEntregaId
+) {
+
+}

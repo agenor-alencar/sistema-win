@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
@@ -31,4 +32,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     // Busca por telefone
     @Query("SELECT u FROM Usuario u WHERE u.telefone = :telefone")
     Optional<Usuario> findByTelefone(@Param("telefone") String telefone);
+
+    Optional<Usuario> findById(UUID usuarioId);
 }
